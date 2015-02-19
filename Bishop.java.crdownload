@@ -1,0 +1,135 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Vector;
+
+
+public class Bishop extends ChessPiece{
+	public Bishop(int position, int play){
+		//position is initial position in which Bishop is created
+		//play is the player number 
+		super();
+		pos=position; 
+		player=play;
+		moves = new Vector<Integer>(14);
+		moves.add(pos+10); //initially, the forward move will always be available
+		// so add it as the only potential move
+	}
+	public void potentialMoves(ChessPiece[][] board){
+		// calculates all the potential moves the Rook can make and puts 
+		// them in a vector
+		moves.clear();
+		int i =1;
+		boolean isEmpty=true;
+		while(isEmpty){
+			if(inGrid(pos+11*i)){	
+				if(board[xBox(pos+11*i)-1][yBox(pos+11*i)-1]!=null){
+					isEmpty=false;
+					if(board[xBox(pos+11*i)-1][yBox(pos+11*i)-1].player()!=player){
+						moves.add(pos+11*i);
+					}
+				}else{
+					moves.add(pos+11*i);
+					i++;
+
+				}
+			}else{	
+				isEmpty=false;
+			}
+		}
+		//North
+		i =1;
+		isEmpty=true;
+		while(isEmpty){
+			if(inGrid(pos-11*i)){	
+				if(board[xBox(pos-11*i)-1][yBox(pos-11*i)-1]!=null){
+					isEmpty=false;
+					if(board[xBox(pos-11*i)-1][yBox(pos-11*i)-1].player()!=player){
+						moves.add(pos-11*i);
+					}
+				}else{
+					moves.add(pos-11*i);
+					i++;
+
+				}
+			}else{	
+				isEmpty=false;
+			}
+		}
+		
+		//East
+		i =1;
+		isEmpty=true;
+		while(isEmpty){
+			if(inGrid(pos+9*i)){	
+				if(board[xBox(pos+9*i)-1][yBox(pos+9*i)-1]!=null){
+					isEmpty=false;
+					if(board[xBox(pos+9*i)-1][yBox(pos+9*i)-1].player()!=player){
+						moves.add(pos+9*i);
+					}
+				}else{
+					moves.add(pos+9*i);
+					i++;
+
+				}
+			}else{	
+				isEmpty=false;
+			}
+		}
+		
+		//West
+		i =1;
+		isEmpty=true;
+		while(isEmpty){
+			if(inGrid(pos-9*i)){	
+				if(board[xBox(pos-9*i)-1][yBox(pos-9*i)-1]!=null){
+					isEmpty=false;
+					if(board[xBox(pos-9*i)-1][yBox(pos-9*i)-1].player()!=player){
+						moves.add(pos-9*i);
+					}
+				}else{
+					moves.add(pos-9*i);
+					i++;
+
+				}
+			}else{	
+				isEmpty=false;
+			}
+		}
+		
+	}
+	
+	
+	@Override
+	public int player() {
+		// TODO Auto-generated method stub
+		return player;
+	}
+
+	@Override
+	public int position() {
+		// TODO Auto-generated method stub
+		return pos;
+	}
+
+	@Override
+	public Vector<Integer> moves() {
+		// TODO Auto-generated method stub
+		return moves;
+	}
+
+	@Override
+	public String type() {
+		// TODO Auto-generated method stub
+		return "Bishop";
+	}
+	
+	@Override
+	public void draw(Graphics g){
+		g.drawOval(findX(), findY(), 30, 30);
+		g.setColor(Color.CYAN);
+		g.fillOval(findX(),findY(), 30, 30);
+		
+	}
+
+
+}
